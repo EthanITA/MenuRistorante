@@ -67,9 +67,9 @@ public class Routes {
     }
 
     /**
-     * Il metodo torna un piatto o una bevande
+     * The api get a dish or beverage
      *
-     * @param name nome del piatto o della bevanda
+     * @param name name of the dish or beverage
      * @return JSON
      */
     @GetMapping("/getConsumable")
