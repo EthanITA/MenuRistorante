@@ -74,7 +74,6 @@ public class Routes {
      */
     @GetMapping("/getConsumable")
     public String getConsumable(@RequestParam String name) {
-        System.out.println("getConsumable");
         Dish dish = menu.getDish(name);
         Beverage beverage = menu.getBeverage(name);
 
