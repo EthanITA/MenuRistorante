@@ -1,0 +1,21 @@
+###
+GET http://localhost:8080/
+
+###
+GET http://localhost:8080/getConsumable?name=Salmone croccante
+
+###
+GET http://localhost:8080/getConsumable?name=Prosecco DOC
+
+###
+GET http://localhost:8080/getConsumable?name=Pasta
+
+###
+GET http://localhost:8080/chefFantasy?price=14&calories=500
+
+
+###
+GET http://localhost:8080/chefFantasy?price=15&calories=500
+
+###
+GET http://localhost:8080/getMenu
