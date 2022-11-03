@@ -63,7 +63,7 @@ public class Menu {
             predicate = dish -> dish.getCalories() <= calories;
         else
             predicate = dish -> true;
-        return groupFirstCoursesByType(predicate);
+        return groupCoursesByType(predicate);
     }
 
     /**
@@ -71,8 +71,9 @@ public class Menu {
      * @return a map of filtered dishes grouped by their type
      * eg. Meat -> [Dish1, Dish2], Fish -> [Dish3, Dish4]
      */
-    private Map<String, List<Dish>> groupFirstCoursesByType(Predicate<Dish> predicate) {
+    private Map<String, List<Dish>> groupCoursesByType(Predicate<Dish> predicate) {
         Map<String, List<Dish>> dishesGroupedByType = this.firstCourses.stream().collect(Collectors.groupingBy(dish -> dish.type));
+        dishesGroupedByType.putAll(this.secondCourses.stream().collect(Collectors.groupingBy(dish -> dish.type)));
         dishesGroupedByType.keySet().forEach(k -> dishesGroupedByType.put(k, dishesGroupedByType.get(k).stream().filter(predicate).collect(Collectors.toList())));
         return dishesGroupedByType;
     }
