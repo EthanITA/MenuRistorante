@@ -6,8 +6,7 @@ import com.example.menuristorante.definitions.Menu;
 import com.example.menuristorante.definitions.constants.BeverageTypes;
 import com.example.menuristorante.definitions.constants.FirstCourseType;
 import com.example.menuristorante.definitions.constants.SecondCourseTypes;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.example.menuristorante.definitions.interfaces.APIs;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Map;
 
 
 @RestController
-public class Routes {
+public class Routes implements APIs {
     Menu menu = new Menu();
 
     public Routes() {
@@ -66,36 +65,21 @@ public class Routes {
         menu.addBeverage(beverage2);
     }
 
-    /**
-     * The api get a dish or beverage
-     *
-     * @param name name of the dish or beverage
-     * @return JSON
-     */
-    @GetMapping("/getConsumable")
-    public String getConsumable(@RequestParam String name) {
+
+    @Override
+    public String getConsumable(String name) {
         Dish dish = menu.getDish(name);
         Beverage beverage = menu.getBeverage(name);
 
         return dish == null ? (beverage == null ? "{}" : beverage.toJSON()) : dish.toJSON();
     }
-
-    @GetMapping("/getMenu")
+    @Override
     public String getMenu() {
         return menu.toJSON();
     }
 
-    /**
-     * Convert chefFantasy to JSON string filtered by <= price and <= calories
-     * If a param is null it will be ignored applying only one filter
-     * If both params are null it will return all the dishes
-     *
-     * @param price    max price of dishes
-     * @param calories max calories of dishes
-     * @return JSON string
-     */
-    @GetMapping("/chefFantasy")
-    public String chefFantasy(@RequestParam(required = false) Double price, @RequestParam(required = false) Integer calories) {
+    @Override
+    public String chefFantasy(Double price, Integer calories) {
         Map<String, List<Dish>> chefFantasyDishes = menu.chefFantasy(price, calories);
         StringBuilder jsonResult = new StringBuilder("{");
         for (String k : chefFantasyDishes.keySet()) {
